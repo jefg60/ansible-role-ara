@@ -31,7 +31,7 @@ required_packages:
 
 required_wsgi_packages:
   - apache2
-  - libapache2-mod-wsgi
+  - libapache2-mod-wsgi-py3
 
 apache_service: apache2
 apache_user: www-data
