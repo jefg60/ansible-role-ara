@@ -27,6 +27,7 @@ required_packages:
   - python3-venv
   - debianutils
   - python3-pip
+  - virtualenv
 
 required_wsgi_packages:
   - apache2
