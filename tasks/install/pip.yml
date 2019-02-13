@@ -16,6 +16,11 @@
 #  You should have received a copy of the GNU General Public License
 #  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
 
+- name: update apt cache for Debian hosts
+  apt:
+    update_cache: true
+  when: "ansible_os_family == 'Debian'"
+
 - name: Install required dependencies
   become: true
   package:
