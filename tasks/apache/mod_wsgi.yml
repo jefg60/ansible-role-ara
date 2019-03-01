@@ -68,7 +68,12 @@
 
 - name: Ensure the configuration is enabled
   become: true
-  command: a2ensite ara
+  file:
+    src: /etc/apache2/sites-available/ara.conf
+    dest: /etc/apache2/sites-enabled/ara.conf
+    owner: root
+    group: root
+    state: link
   when: ansible_os_family == "Debian"
   notify:
     - restart apache
