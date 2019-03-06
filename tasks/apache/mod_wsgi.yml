@@ -69,23 +69,8 @@
     name: "{{ apache_service }}"
     enabled: true
 
-- name: enable apache2 ssl module
-  apache2_module:
-    state: present
-    name: ssl
+- import_playbook: apache/ssl.yml
   when: ara.deployment.apache.ssl == true
-
-- name: Ensure the configuration is enabled for https
-  become: true
-  file:
-    src: /etc/apache2/sites-available/ara-wsgi-ssl.conf
-    dest: /etc/apache2/sites-enabled/ara-wsgi-ssl.conf
-    owner: root
-    group: root
-    state: link
-  when: ansible_os_family == "Debian" and ara.deployment.apache.ssl == true
-  notify:
-    - restart apache
 
 - name: Ensure the configuration is enabled for http
   become: true

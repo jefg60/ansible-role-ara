@@ -1,0 +1,40 @@
+---
+- name: Ensure directory exists for local self-signed TLS certs.
+  file:
+    path: "/etc/letsencrypt/live/{{ ara.config.host }}"
+    state: directory
+
+- name: Generate an OpenSSL private key.
+  openssl_privatekey:
+    path: "/etc/letsencrypt/live/{{ ara.config.host }}/privkey.pem"
+
+- name: Generate an OpenSSL CSR.
+  openssl_csr:
+    path: "/etc/ssl/private/{{ ara.config.host }}.csr"
+    privatekey_path: "/etc/letsencrypt/live/{{ ara.config.host }}/privkey.pem"
+    common_name: "{{ ara.config.host }}"
+
+- name: Generate a Self Signed OpenSSL certificate.
+  openssl_certificate:
+    path: "/etc/letsencrypt/live/{{ ara.config.host }}/fullchain.pem"
+    privatekey_path: "/etc/letsencrypt/live/{{ ara.config.host }}/privkey.pem"
+    csr_path: "/etc/ssl/private/{{ ara.config.host }}.csr"
+    provider: selfsigned
+
+- name: enable apache2 ssl module
+  apache2_module:
+    state: present
+    name: ssl
+
+- name: Ensure the configuration is enabled for https
+  become: true
+  file:
+    src: /etc/apache2/sites-available/ara-wsgi-ssl.conf
+    dest: /etc/apache2/sites-enabled/ara-wsgi-ssl.conf
+    owner: root
+    group: root
+    state: link
+  when: ansible_os_family == "Debian"
+  notify:
+    - restart apache
+
