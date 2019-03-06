@@ -65,6 +65,8 @@ ara:
     nginx:
       # Where nginx will store the proxy cache
       cache_directory: /var/cache/nginx
+    apache:
+      ssl: false
 
 # You can use a variable called ara_override to use custom configuration
 # parameters.

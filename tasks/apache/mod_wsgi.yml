@@ -51,11 +51,14 @@
 - name: Set up Apache configuration
   become: true
   template:
-    src: apache_mod_wsgi.conf.j2
-    dest: "{{ apache_config_path }}/ara.conf"
+    src: "{{ item }}.conf.j2"
+    dest: "{{ apache_config_path }}/{{ item }}.conf"
     owner: root
     group: root
     mode: 0644
+  loop:
+    - ara-wsgi
+    - ara-wsgi-ssl
   notify:
     - restart apache
 
@@ -66,14 +69,26 @@
     name: "{{ apache_service }}"
     enabled: true
 
-- name: Ensure the configuration is enabled
+- name: Ensure the configuration is enabled for https
   become: true
   file:
-    src: /etc/apache2/sites-available/ara.conf
-    dest: /etc/apache2/sites-enabled/ara.conf
+    src: /etc/apache2/sites-available/ara-wsgi-ssl.conf
+    dest: /etc/apache2/sites-enabled/ara-wsgi-ssl.conf
     owner: root
     group: root
     state: link
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and ara.deployment.apache == true
+  notify:
+    - restart apache
+
+- name: Ensure the configuration is enabled for http
+  become: true
+  file:
+    src: /etc/apache2/sites-available/ara-wsgi.conf
+    dest: /etc/apache2/sites-enabled/ara-wsgi.conf
+    owner: root
+    group: root
+    state: link
+  when: ansible_os_family == "Debian" and ara.deployment.apache != true
   notify:
     - restart apache
