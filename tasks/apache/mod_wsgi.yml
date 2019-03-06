@@ -69,7 +69,7 @@
     name: "{{ apache_service }}"
     enabled: true
 
-- import_playbook: apache/ssl.yml
+- import_tasks: apache/ssl.yml
   when: ara.deployment.apache.ssl == true
 
 - name: Ensure the configuration is enabled for http
