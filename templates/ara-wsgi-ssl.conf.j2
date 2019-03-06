@@ -2,8 +2,8 @@
     ServerName {{ ara.config.host }}
 
     SSLEngine on
-    SSLCertificateFile /etc/letsencrypt/live/{{ inventory_hostname }}/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem
+    SSLCertificateFile /etc/letsencrypt/live/{{ ara.config.host }}/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{ ara.config.host }}/privkey.pem
 
     ErrorLog {{ apache_log_path }}/ara-error.log
     LogLevel warn
