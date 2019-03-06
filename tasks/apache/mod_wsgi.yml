@@ -77,7 +77,7 @@
     owner: root
     group: root
     state: link
-  when: ansible_os_family == "Debian" and ara.deployment.apache == true
+  when: ansible_os_family == "Debian" and ara.deployment.apache.ssl == true
   notify:
     - restart apache
 
@@ -89,6 +89,6 @@
     owner: root
     group: root
     state: link
-  when: ansible_os_family == "Debian" and ara.deployment.apache != true
+  when: ansible_os_family == "Debian" and ara.deployment.apache.ssl != true
   notify:
     - restart apache
