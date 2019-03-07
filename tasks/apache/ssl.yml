@@ -37,4 +37,3 @@
   when: ansible_os_family == "Debian"
   notify:
     - restart apache
-
