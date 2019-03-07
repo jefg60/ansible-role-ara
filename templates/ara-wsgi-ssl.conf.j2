@@ -1,4 +1,4 @@
-<VirtualHost _default_:443>
+<VirtualHost _default_:{{ ara.config.port_ssl }}>
     ServerName {{ ara.config.host }}
 
     SSLEngine on

@@ -41,6 +41,8 @@ ara:
     host: localhost
     # Port to listen on for embedded server or apache
     port: 9191
+    # SSL port for apache server
+    port_ssl: 443
     # Root (or prefix) for the web application location
     application_root: /
     # Directory where files are stored by default
