@@ -76,5 +76,3 @@ ara:
 # ara_override:
 #   config:
 #     database: "mysql+pymysql://ara:password@localhost/ara"
-#
-apache_listen_port_ssl: "{{ ara_override.config.port_ssl }}"
