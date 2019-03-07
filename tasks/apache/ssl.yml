@@ -26,6 +26,14 @@
     state: present
     name: ssl
 
+- name: enable apache to use ara.config.port_ssl
+  replace:
+    path: /etc/apache2/ports.conf
+    regexp: 'Listen 443'
+    replace: "Listen {{ ara.config.port_ssl }}"
+  notify:
+    - restart apache
+
 - name: Ensure the configuration is enabled for https
   become: true
   file:
