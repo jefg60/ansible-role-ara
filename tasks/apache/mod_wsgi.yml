@@ -24,6 +24,13 @@
     enabled: no
     masked: yes
 
+- name: install ondrej apache repo for Ubuntu
+  apt_repository:
+    repo: ppa:ondrej/apache2
+    update_cache: yes
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
 - name: Install required dependencies for mod_wsgi
   become: true
   package:
