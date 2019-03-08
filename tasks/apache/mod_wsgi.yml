@@ -21,7 +21,6 @@
   systemd:
     name: ara
     state: stopped
-    enabled: no
     masked: yes
 
 - name: install ondrej apache repo for Ubuntu
