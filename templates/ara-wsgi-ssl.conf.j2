@@ -24,8 +24,10 @@
 
     <Directory "{{ wsgi_script | dirname }}">
         <Files "ara-wsgi">
-            Allow from all
-            Satisfy Any
+            AuthType Basic
+            AuthName "Authentication Required"
+            AuthUserFile "/etc/htpasswd/.htpasswd"
+            Require valid-user
         </Files>
     </Directory>
 </VirtualHost>
