@@ -16,11 +16,17 @@
 #  You should have received a copy of the GNU General Public License
 #  along with ARA.  If not, see <http://www.gnu.org/licenses/>.
 
-- name: Ensure the embedded server service is not started and is disabled
+- name: Ensure the embedded server service is stopped
   become: true
   systemd:
     name: ara
     state: stopped
+
+- name: Ensure the embedded server service is disabled
+  become: true
+  systemd:
+    name: ara
+    enabled: false
     masked: yes
 
 - name: install ondrej apache repo for Ubuntu
