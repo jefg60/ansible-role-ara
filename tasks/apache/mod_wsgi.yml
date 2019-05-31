@@ -52,7 +52,6 @@
   when: ansible_distribution == "Ubuntu"
 
 - name: Install mod_wsgi in virtualenv using pip
-  become: true
   pip:
     name: mod_wsgi
     virtualenv: "{{ ara.install.pip.virtualenv | bool | ternary(ara.install.pip.virtualenv_path, omit) }}"
