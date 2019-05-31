@@ -42,6 +42,33 @@
     name: "{{ required_wsgi_packages }}"
     state: "present"
 
+- name: remove ubuntu distribution mod_wsgi packages if installed
+  become: true
+  apt:
+    name:
+      - libapache2-mod-wsgi-py3
+      - libapache2-mod-wsgi
+    state: absent
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install mod_wsgi in virtualenv using pip
+  become: true
+  pip:
+    name: mod_wsgi
+    virtualenv: "{{ ara.install.pip.virtualenv | bool | ternary(ara.install.pip.virtualenv_path, omit) }}"
+    virtualenv_python: python3.7
+
+- name: create mod_wsgi.load file in apache mods-available
+  become: true
+  command: "{{ ara.install.pip.virtualenv_path }}/bin/mod_wsgi-express module-config > /etc/apache2/mods-available/wsgi.load"
+  creates: /etc/apache2/mods-available/wsgi.load
+
+- name: enable apache mod_wsgi module
+  become: true
+  apache2_module:
+    state: present
+    name: wsgi
+
 - name: Set selinux boolean to allow Apache to manage the files
   become: true
   seboolean:
