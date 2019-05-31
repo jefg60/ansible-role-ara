@@ -60,7 +60,7 @@
 
 - name: create mod_wsgi.load file in apache mods-available
   become: true
-  command: "{{ ara.install.pip.virtualenv_path }}/bin/mod_wsgi-express module-config > /etc/apache2/mods-available/wsgi.load"
+  shell: "{{ ara.install.pip.virtualenv_path }}/bin/mod_wsgi-express module-config > /etc/apache2/mods-available/wsgi.load"
   args:
     creates: /etc/apache2/mods-available/wsgi.load
 
