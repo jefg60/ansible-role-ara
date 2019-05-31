@@ -30,6 +30,7 @@ required_packages:
   - virtualenv
 
 required_wsgi_packages:
+  - apache2
   - apache2-dev
 
 apache_service: apache2
