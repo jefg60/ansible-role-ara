@@ -42,6 +42,9 @@
     name: "{{ required_wsgi_packages }}"
     state: "present"
 
+# ubuntu packages, if installed, will leave behind a python 3.6 mod_wsgi config
+# so purge also required to remove some config files, without it we still have
+# config file pointing to the 3.6 version in /etc/apache2/mods-available
 - name: remove ubuntu distribution mod_wsgi packages if installed
   become: true
   apt:
@@ -49,6 +52,7 @@
       - libapache2-mod-wsgi-py3
       - libapache2-mod-wsgi
     state: absent
+    purge: true
   when: ansible_distribution == "Ubuntu"
 
 - name: Install mod_wsgi in virtualenv using pip
