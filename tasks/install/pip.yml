@@ -61,14 +61,14 @@
   pip:
     name: "{{ pkg_name }}"
     version: "{{ ara.install.pip.version | default(omit, True) }}"
-    state: latest
+    state: present
     virtualenv: "{{ ara.install.pip.virtualenv | bool | ternary(ara.install.pip.virtualenv_path, omit) }}"
 
 - name: Install pymysql with pip
   become: true
   pip:
     name: pymysql
-    state: latest
+    state: present
     virtualenv: "{{ ara.install.pip.virtualenv | bool | ternary(ara.install.pip.virtualenv_path, omit) }}"
   when: '"pymysql" in ara.config.database'
 
@@ -76,7 +76,7 @@
   become: true
   pip:
     name: psycopg2
-    state: latest
+    state: present
     virtualenv: "{{ ara.install.pip.virtualenv | bool | ternary(ara.install.pip.virtualenv_path, omit) }}"
   when: '"psycopg2" in ara.config.database'
 
