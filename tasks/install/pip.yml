@@ -45,7 +45,7 @@
     state: latest
     virtualenv: "{{ ara.install.pip.virtualenv_path }}"
     virtualenv_site_packages: true
-    virtualenv_python: python3.7
+    virtualenv_python: python3
   when: ara.install.pip.virtualenv | bool
 
 - name: Install ARA with pip
