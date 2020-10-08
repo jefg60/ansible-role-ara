@@ -52,7 +52,7 @@
   become: true
   pip:
     name:
-      - 'ara==0.16.7'
+      - ara
       - 'ansible==2.9.14'
     state: present
     virtualenv: "{{ ara.install.pip.virtualenv | bool | ternary(ara.install.pip.virtualenv_path, omit) }}"
